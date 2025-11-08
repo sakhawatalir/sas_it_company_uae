@@ -1,0 +1,132 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Database Types
+export interface Project {
+  id?: string
+  title: string
+  client: string
+  description: string
+  short_description: string
+  category: string
+  status: string
+  start_date?: string
+  completion_date?: string
+  technologies: string[]
+  features: string[]
+  image_urls: string[]
+  budget?: string
+  team_size?: string
+  testimonial?: string
+  testimonial_author?: string
+  project_url?: string
+  github_url?: string
+  created_at?: string
+  updated_at?: string
+}
+
+// Upload image to Supabase Storage
+export async function uploadProjectImage(file: File, projectId: string, index: number) {
+  const fileExt = file.name.split('.').pop()
+  const fileName = `${projectId}-${index}.${fileExt}`
+  const filePath = `projects/${fileName}`
+
+  const { data, error } = await supabase.storage
+    .from('project-images')
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: false
+    })
+
+  if (error) {
+    throw error
+  }
+
+  // Get public URL
+  const { data: { publicUrl } } = supabase.storage
+    .from('project-images')
+    .getPublicUrl(filePath)
+
+  return publicUrl
+}
+
+// Create new project
+export async function createProject(projectData: Omit<Project, 'id' | 'created_at' | 'updated_at'>) {
+  const { data, error } = await supabase
+    .from('projects')
+    .insert([projectData])
+    .select()
+    .single()
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
+// Get all projects
+export async function getProjects() {
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
+// Get project by ID
+export async function getProject(id: string) {
+  const { data, error } = await supabase
+    .from('projects')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
+// Update project
+export async function updateProject(id: string, projectData: Partial<Project>) {
+  const { data, error } = await supabase
+    .from('projects')
+    .update(projectData)
+    .eq('id', id)
+    .select()
+    .single()
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
+// Delete project
+export async function deleteProject(id: string) {
+  const { error } = await supabase
+    .from('projects')
+    .delete()
+    .eq('id', id)
+
+  if (error) {
+    throw error
+  }
+
+  return true
+}
+
+
+
