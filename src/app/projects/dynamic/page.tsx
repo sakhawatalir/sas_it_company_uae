@@ -292,7 +292,7 @@ export default function DynamicProjectsPage() {
         <div className="cta-container">
           <h2 className="cta-title">Ready to Start Your Project?</h2>
           <p className="cta-description">
-            Let's discuss how we can help bring your ideas to life with our expert development team.
+            Let&apos;s discuss how we can help bring your ideas to life with our expert development team.
           </p>
           <div className="cta-buttons">
             <Link href="/contact" className="cta-btn-primary">

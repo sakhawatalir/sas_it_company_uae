@@ -862,7 +862,7 @@ export default function Home() {
               Featured Projects
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Discover how we've helped businesses transform their operations with innovative IT solutions.
+              Discover how we&apos;ve helped businesses transform their operations with innovative IT solutions.
             </p>
           </motion.div>
 
@@ -967,7 +967,9 @@ export default function Home() {
                 </div>
                 
                 <p className="text-gray-300 mb-6 leading-relaxed">
-                  "{testimonial.content}"
+                  <span aria-hidden="true">&ldquo;</span>
+                  {testimonial.content}
+                  <span aria-hidden="true">&rdquo;</span>
                 </p>
                 
                 <div className="flex items-center">
