@@ -335,12 +335,12 @@ export default function Home() {
               className="relative flex items-center justify-center"
             >
               <div className="relative w-96 h-96 flex items-center justify-center">
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full rounded-full overflow-hidden">
                   <Image
                     src="/sas-logo.jpg"
                     alt="SAS IT Services Logo"
                     fill
-                    className="object-contain"
+                    className="object-cover"
                     priority
                   />
                 </div>
