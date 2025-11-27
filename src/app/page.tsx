@@ -5,6 +5,9 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import React from 'react';
+import Services from '@/components/Services';
+import WhyChooseUs from '@/components/WhyChooseUs';
+import Contact from '@/components/Contact';
 import {
   ChevronRightIcon,
   PhoneIcon,
@@ -324,7 +327,7 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Logo Section with Glowing Effects */}
+            {/* Logo Section - Simple Image */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -332,128 +335,15 @@ export default function Home() {
               className="relative flex items-center justify-center"
             >
               <div className="relative w-96 h-96 flex items-center justify-center">
-                {/* Main Circular Logo Container */}
-                <motion.div
-                  animate={{ 
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                  className="relative w-80 h-80 rounded-full"
-                >
-                  {/* Glowing Neon Outline - Blue to Magenta Gradient */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-80 blur-xl animate-pulse" />
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-60 blur-lg" />
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-40 blur-md" />
-                  
-                  {/* Blooming Corner Effects - Different Colors */}
-                  {/* Top Left - Blue */}
-                  <motion.div
-                    className="absolute -top-4 -left-4 w-24 h-24 rounded-full bg-blue-400 blur-2xl"
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      opacity: [0.6, 0.9, 0.6],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/sas-logo.jpg"
+                    alt="SAS IT Services Logo"
+                    fill
+                    className="object-contain"
+                    priority
                   />
-                  {/* Top Right - Cyan */}
-                  <motion.div
-                    className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-cyan-400 blur-2xl"
-                    animate={{
-                      scale: [1.2, 1, 1.2],
-                      opacity: [0.7, 0.5, 0.7],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 0.5
-                    }}
-                  />
-                  {/* Bottom Left - Purple */}
-                  <motion.div
-                    className="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-purple-500 blur-2xl"
-                    animate={{
-                      scale: [1.1, 1.4, 1.1],
-                      opacity: [0.5, 0.8, 0.5],
-                    }}
-                    transition={{
-                      duration: 3.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1
-                    }}
-                  />
-                  {/* Bottom Right - Magenta/Pink */}
-                  <motion.div
-                    className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-pink-500 blur-2xl"
-                    animate={{
-                      scale: [1.3, 1, 1.3],
-                      opacity: [0.6, 0.9, 0.6],
-                    }}
-                    transition={{
-                      duration: 4.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1.5
-                    }}
-                  />
-                  
-                  {/* Inner Circle with Logo */}
-                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm border-4 border-transparent bg-clip-padding overflow-hidden flex flex-col items-center justify-center">
-                    {/* Logo Image */}
-                    <div className="relative w-48 h-48 mb-4">
-                      <Image
-                        src="/images/logo.jpeg"
-                        alt="SAS IT Services Logo"
-                        fill
-                        className="object-contain"
-                        priority
-                      />
-                    </div>
-                    
-                    {/* SAS Text */}
-                    <motion.h2
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.8, delay: 0.6 }}
-                      className="text-5xl font-bold text-white mb-2"
-                    >
-                      SAS
-                    </motion.h2>
-                    
-                    {/* IT SERVICES Text */}
-                    <motion.p
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.8 }}
-                      className="text-lg text-white font-medium"
-                    >
-                      IT SERVICES
-                    </motion.p>
-                  </div>
-                  
-                  {/* Rotating Glow Ring */}
-                  <motion.div
-                    className="absolute inset-0 rounded-full"
-                    style={{
-                      background: 'conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.3), transparent, rgba(236, 72, 153, 0.3), transparent)',
-                    }}
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 10,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                  />
-                </motion.div>
+                </div>
               </div>
             </motion.div>
             
@@ -461,410 +351,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OUR SERVICES Section */}
-      <section className="relative py-20 bg-gradient-to-b from-slate-900 via-blue-900 to-purple-900">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              OUR SERVICES
-            </h2>
-          </motion.div>
+      {/* Services Section */}
+      <Services />
 
-          {/* Services Grid - 2x3 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: ShieldCheckIcon,
-                title: 'Networking & Security',
-                link: '/services#networking',
-              },
-              {
-                icon: ServerIcon,
-                title: 'Server Solutions',
-                link: '/services#servers',
-              },
-              {
-                icon: VideoCameraIcon,
-                title: 'CCTV & Surveillance',
-                link: '/services#cctv',
-              },
-              {
-                icon: CogIcon,
-                title: 'AMC Services',
-                link: '/services#amc',
-              },
-              {
-                icon: PhoneIcon,
-                title: 'Telephony Solutions',
-                link: '/services#telephony',
-              },
-              {
-                icon: PresentationChartBarIcon,
-                title: 'Smart Meeting Rooms',
-                link: '/services#meeting-rooms',
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="group"
-              >
-                <Link
-                  href={service.link}
-                  className="block p-6 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-300"
-                >
-                  {/* Icon Circle */}
-                  <div className="flex items-center justify-center w-16 h-16 rounded-full border-2 border-blue-400 bg-blue-400/10 mb-4 group-hover:bg-blue-400/20 transition-colors">
-                    <service.icon className="w-8 h-8 text-white" />
-                  </div>
-                  
-                  {/* Service Title */}
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
-                    {service.title}
-                  </h3>
-                  
-                  {/* Learn More Link */}
-                  <span className="text-white text-sm hover:text-blue-400 transition-colors inline-flex items-center">
-                    Learn more
-                    <ChevronRightIcon className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Why Choose Us Section */}
+      <WhyChooseUs />
 
-      {/* WHY CHOOSE US Section */}
-      <section className="relative py-20 bg-gradient-to-b from-purple-900 via-blue-900 to-slate-900">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              WHY CHOOSE US
-            </h2>
-          </motion.div>
-
-          <div className="relative min-h-[600px]">
-            {/* Grid Layout for positioning */}
-            <div className="grid grid-cols-3 gap-8 items-center justify-items-center max-w-4xl mx-auto">
-              {/* Top Left Stat */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5, y: -50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
-                viewport={{ once: true }}
-                className="p-6 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 text-center w-full"
-              >
-                <div className="text-4xl font-bold text-white mb-2">500+</div>
-                <div className="text-sm text-gray-300">Projects Completed</div>
-              </motion.div>
-
-              {/* Top Center - Empty */}
-              <div></div>
-
-              {/* Top Right Stat */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5, y: -50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, type: "spring", stiffness: 100 }}
-                viewport={{ once: true }}
-                className="p-6 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 text-center w-full"
-              >
-                <div className="text-4xl font-bold text-white mb-2">250+</div>
-                <div className="text-sm text-gray-300">Happy Clients</div>
-              </motion.div>
-
-              {/* Middle Left - Empty */}
-              <div></div>
-
-              {/* Center Image */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1 }}
-                viewport={{ once: true }}
-                className="relative w-64 h-64 lg:w-80 lg:h-80"
-              >
-                {/* Circular Glow Effect */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-50 blur-2xl animate-pulse" />
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 opacity-30 blur-xl" />
-                
-                {/* Image Container */}
-                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 bg-slate-800">
-                  <Image
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                    alt="Team Member"
-                    fill
-                    className="object-cover"
-                  />
-                  
-                  {/* SS Logo Background */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="text-white/10 text-9xl font-bold">SS</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Middle Right - Empty */}
-              <div></div>
-
-              {/* Bottom Left Stat */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5, y: 50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
-                viewport={{ once: true }}
-                className="p-6 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 text-center w-full"
-              >
-                <div className="text-4xl font-bold text-white mb-2">24/7</div>
-                <div className="text-sm text-gray-300">Support Available</div>
-              </motion.div>
-
-              {/* Bottom Center - Empty */}
-              <div></div>
-
-              {/* Bottom Right Stat */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5, y: 50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
-                viewport={{ once: true }}
-                className="p-6 bg-slate-800/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 text-center w-full"
-              >
-                <div className="text-4xl font-bold text-white mb-2">10+</div>
-                <div className="text-sm text-gray-300">Years of Experience</div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Contact Section */}
+      <Contact />
 
       {/* Circular Services Section */}
-      <section className="relative py-32 overflow-hidden">
-        {/* Background Animation */}
-        <div className="absolute inset-0">
-          <motion.div
-            animate={{
-              background: [
-                'radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%)',
-                'radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3), transparent 50%)',
-                'radial-gradient(circle at 40% 80%, rgba(119, 198, 255, 0.3), transparent 50%)',
-                'radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%)',
-              ]
-            }}
-            transition={{ duration: 10, repeat: Infinity }}
-            className="w-full h-full"
-          />
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <span className="text-orange-400 text-sm font-medium">Our Solutions</span>
-            </motion.div>
-            
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-white mt-2 mb-4"
-            >
-              Comprehensive IT Services
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="text-xl text-gray-400 max-w-3xl mx-auto"
-            >
-              From infrastructure to innovation, we provide end-to-end IT solutions that transform your business operations.
-            </motion.p>
-          </motion.div>
-
-          {/* Circular Services Layout */}
-          <div className="relative flex items-center justify-center min-h-[600px]">
-            {/* Central Logo/Hub */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="absolute z-10"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="w-32 h-32 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-2xl border-4 border-white/20"
-              >
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                  className="text-white text-2xl font-bold"
-                >
-                  SAS
-                </motion.div>
-              </motion.div>
-              
-              {/* Pulsing rings around center */}
-              {[1, 2, 3].map((ring) => (
-                <motion.div
-                  key={ring}
-                  className="absolute inset-0 border-2 border-blue-400/20 rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [0.5, 0, 0.5],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    delay: ring * 0.5,
-                  }}
-                  style={{
-                    width: `${128 + ring * 20}px`,
-                    height: `${128 + ring * 20}px`,
-                    left: `${-ring * 10}px`,
-                    top: `${-ring * 10}px`,
-                  }}
-                />
-              ))}
-            </motion.div>
-
-            {/* Services arranged in circle */}
-            {services.map((service, index) => {
-              const angle = (index * 360) / services.length;
-              const radius = 250;
-              const x = Math.cos((angle - 90) * (Math.PI / 180)) * radius;
-              const y = Math.sin((angle - 90) * (Math.PI / 180)) * radius;
-
-              return (
-                <motion.div
-                  key={service.title}
-                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                  whileInView={{ 
-                    opacity: 1, 
-                    scale: 1, 
-                    x: x, 
-                    y: y 
-                  }}
-                  transition={{ 
-                    duration: 1, 
-                    delay: 0.7 + index * 0.2,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  viewport={{ once: true }}
-                  className="absolute group cursor-pointer"
-                >
-                  {/* Connecting line to center */}
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: 1 + index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="absolute w-full h-0.5 bg-gradient-to-r from-blue-400/50 to-transparent origin-right"
-                    style={{
-                      width: `${radius}px`,
-                      transform: `rotate(${angle + 90}deg)`,
-                      transformOrigin: 'right center',
-                      right: '50%',
-                      top: '50%',
-                    }}
-                  />
-                  
-                  <Link href={service.link}>
-                    <motion.div
-                      whileHover={{ 
-                        scale: 1.1,
-                        rotateY: 10,
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative w-48 h-48 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 hover:border-blue-400/50 transition-all duration-500"
-                    >
-                      {/* Service Image Background */}
-                      <div className="absolute inset-0">
-                        <Image
-                          src={service.image}
-                          alt={service.title}
-                          fill
-                          className="object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent" />
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                        <motion.div
-                          animate={{ 
-                            rotate: [0, 5, -5, 0],
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            delay: index * 0.5
-                          }}
-                          className="mb-3"
-                        >
-                          <service.icon className="w-8 h-8 text-blue-400" />
-                        </motion.div>
-                        
-                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                          {service.title}
-                        </h3>
-                        
-                        <p className="text-sm text-gray-400 leading-relaxed">
-                          {service.description}
-                        </p>
-                      </div>
-                      
-                      {/* Hover glow effect */}
-                      <motion.div
-                        className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-2xl`}
-                        whileHover={{
-                          boxShadow: "0 0 30px rgba(59, 130, 246, 0.3)"
-                        }}
-                      />
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+     
 
       {/* Amazing Infinite Slider Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
         <div className="relative">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -934,7 +434,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section className="relative py-20">
+      <section className="relative py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1020,7 +520,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="relative py-20">
+      <section className="relative py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1079,7 +579,7 @@ export default function Home() {
       </section>
 
       {/* Call to Action */}
-      <section className="relative py-20">
+      <section className="relative py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
