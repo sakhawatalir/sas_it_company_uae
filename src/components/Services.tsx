@@ -6,37 +6,37 @@ const services = [
         icon: Shield,
         title: 'Networking & Security',
         description: 'Secure and robust network infrastructure for your business.',
-        link: '/services/networking'
+        link: '/services#networking'
     },
     {
         icon: Server,
         title: 'Server Solutions',
         description: 'High-performance server setup and maintenance.',
-        link: '/services/servers'
+        link: '/services#servers'
     },
     {
         icon: Cctv,
         title: 'CCTV & Surveillance',
         description: 'Advanced monitoring systems for complete security.',
-        link: '/services/cctv'
+        link: '/services#cctv'
     },
     {
         icon: Settings,
         title: 'AMC Services',
         description: 'Annual maintenance contracts to keep your IT running smooth.',
-        link: '/services/amc'
+        link: '/services'
     },
     {
         icon: Phone,
         title: 'Telephony Solutions',
         description: 'Modern communication systems for seamless connectivity.',
-        link: '/services/telephony'
+        link: '/services'
     },
     {
         icon: MonitorPlay,
         title: 'Smart Meeting Rooms',
         description: 'State-of-the-art audiovisual setups for conferences.',
-        link: '/services/meeting-rooms'
+        link: '/services'
     }
 ];
 

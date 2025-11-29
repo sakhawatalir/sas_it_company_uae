@@ -161,57 +161,6 @@ export default function ClientsPage() {
     },
   ];
 
-  const partners = [
-    {
-      name: 'Cisco Systems',
-      logo: '/images/partners/cisco.png',
-      partnership: 'Gold Partner',
-      description: 'Enterprise networking and security solutions',
-    },
-    {
-      name: 'Microsoft',
-      logo: '/images/partners/microsoft.png',
-      partnership: 'Solution Partner',
-      description: 'Cloud services and productivity solutions',
-    },
-    {
-      name: 'Fortinet',
-      logo: '/images/partners/fortinet.png',
-      partnership: 'Certified Partner',
-      description: 'Cybersecurity and network security',
-    },
-    {
-      name: 'Hikvision',
-      logo: '/images/partners/hikvision.png',
-      partnership: 'Authorized Dealer',
-      description: 'Video surveillance and security systems',
-    },
-    {
-      name: 'Dell Technologies',
-      logo: '/images/partners/dell.png',
-      partnership: 'Preferred Partner',
-      description: 'Servers, storage, and infrastructure solutions',
-    },
-    {
-      name: 'Ubiquiti',
-      logo: '/images/partners/ubiquiti.png',
-      partnership: 'Elite Partner',
-      description: 'Wireless networking and communication',
-    },
-    {
-      name: 'VMware',
-      logo: '/images/partners/vmware.png',
-      partnership: 'Technology Partner',
-      description: 'Virtualization and cloud infrastructure',
-    },
-    {
-      name: 'Lutron',
-      logo: '/images/partners/lutron.png',
-      partnership: 'Certified Dealer',
-      description: 'Smart lighting and automation systems',
-    },
-  ];
-
   const stats = [
     { value: '250+', label: 'Happy Clients' },
     { value: '500+', label: 'Projects Completed' },
@@ -398,39 +347,6 @@ export default function ClientsPage() {
                 Smart Office Solutions
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Partners */}
-      <section className="py-20 bg-[#16213e]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Technology Partners
-            </h2>
-            <p className="text-gray-300">
-              Working with industry-leading technology providers
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
-            {partners.map((partner, index) => (
-              <div key={index} className="card text-center">
-                <div className="w-12 h-12 bg-[#0f3460] rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <CheckCircleIcon className="h-6 w-6 text-[#4a9eff]" />
-                </div>
-                <h3 className="text-white font-semibold mb-2 text-sm">
-                  {partner.name}
-                </h3>
-                <p className="text-[#4a9eff] text-xs font-medium mb-2">
-                  {partner.partnership}
-                </p>
-                <p className="text-gray-400 text-xs">
-                  {partner.description}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

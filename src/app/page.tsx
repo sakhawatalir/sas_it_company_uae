@@ -127,14 +127,20 @@ export default function Home() {
   ];
 
   const technologies = [
-    { name: 'React', logo: '⚛️', color: 'from-blue-400 to-cyan-400' },
-    { name: 'Node.js', logo: '🟢', color: 'from-green-400 to-emerald-400' },
-    { name: 'Python', logo: '🐍', color: 'from-yellow-400 to-orange-400' },
-    { name: 'AWS', logo: '☁️', color: 'from-orange-400 to-red-400' },
-    { name: 'Docker', logo: '🐳', color: 'from-blue-400 to-indigo-400' },
-    { name: 'Kubernetes', logo: '⚙️', color: 'from-purple-400 to-pink-400' },
-    { name: 'MongoDB', logo: '🍃', color: 'from-green-400 to-teal-400' },
-    { name: 'PostgreSQL', logo: '🐘', color: 'from-blue-400 to-purple-400' },
+    { name: 'Unifi', logo: 'https://logo.clearbit.com/ui.com', fallback: 'U', color: 'from-blue-400 to-cyan-400' },
+    { name: 'Fortinet', logo: 'https://logo.clearbit.com/fortinet.com', fallback: 'F', color: 'from-red-400 to-orange-400' },
+    { name: 'Ruijie', logo: 'https://www.ruijienetworks.com/wp-content/uploads/2021/06/ruijie-logo.png', fallback: 'R', color: 'from-green-400 to-emerald-400' },
+    { name: 'Ruckus', logo: 'https://logo.clearbit.com/ruckusnetworks.com', fallback: 'R', color: 'from-purple-400 to-pink-400' },
+    { name: 'Hikvision', logo: 'https://logo.clearbit.com/hikvision.com', fallback: 'H', color: 'from-blue-500 to-indigo-500' },
+    { name: 'Samsung', logo: 'https://logo.clearbit.com/samsung.com', fallback: 'S', color: 'from-blue-400 to-purple-400' },
+    { name: 'Uniview', logo: 'https://logo.clearbit.com/uniview.com', fallback: 'UNV', color: 'from-cyan-400 to-blue-400' },
+    { name: 'ZKTeco', logo: 'https://logo.clearbit.com/zkteco.com', fallback: 'ZK', color: 'from-green-400 to-teal-400' },
+    { name: 'Yeastar', logo: 'https://logo.clearbit.com/yeastar.com', fallback: 'Y', color: 'from-yellow-400 to-orange-400' },
+    { name: 'Grandstream', logo: 'https://logo.clearbit.com/grandstream.com', fallback: 'G', color: 'from-indigo-400 to-purple-400' },
+    { name: 'Logitech', logo: 'https://logo.clearbit.com/logitech.com', fallback: 'L', color: 'from-blue-400 to-cyan-400' },
+    { name: 'Avaya', logo: 'https://logo.clearbit.com/avaya.com', fallback: 'A', color: 'from-purple-400 to-pink-400' },
+    { name: 'Yealink', logo: 'https://logo.clearbit.com/yealink.com', fallback: 'Y', color: 'from-green-400 to-emerald-400' },
+    { name: 'TP-Link', logo: 'https://logo.clearbit.com/tp-link.com', fallback: 'TP', color: 'from-blue-400 to-indigo-400' },
   ];
 
   return (
@@ -375,26 +381,32 @@ export default function Home() {
           >
             <span className="text-cyan-400 text-sm font-medium">Technologies We Master</span>
             <h2 className="text-4xl font-bold text-white mt-2 mb-4">
-              Cutting-Edge Tech Stack
+              Technologies and brands we work with
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              We leverage the latest technologies to build robust, scalable, and innovative solutions.
+              Trusted & Industry-leading solutions we deploy across Dubai & the UAE.
             </p>
           </motion.div>
 
           {/* Infinite Slider */}
-          <div className="relative">
-            <motion.div
-              animate={{ x: [0, -100 * technologies.length] }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              className="flex gap-8"
-              style={{ width: `${200 * technologies.length * 2}%` }}
-            >
-              {/* Double the array for seamless loop */}
+          <div className="relative overflow-hidden">
+            <style dangerouslySetInnerHTML={{
+              __html: `
+                @keyframes infiniteScroll {
+                  0% {
+                    transform: translateX(0);
+                  }
+                  100% {
+                    transform: translateX(calc(-${technologies.length * 224}px));
+                  }
+                }
+                .infinite-scroll-container {
+                  animation: infiniteScroll 30s linear infinite;
+                }
+              `
+            }} />
+            <div className="flex gap-8 infinite-scroll-container" style={{ width: 'max-content' }}>
+              {/* Duplicate array for seamless loop */}
               {[...technologies, ...technologies].map((tech, index) => (
                 <motion.div
                   key={`${tech.name}-${index}`}
@@ -406,29 +418,37 @@ export default function Home() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} opacity-20 rounded-2xl blur-xl group-hover:opacity-40 transition-opacity duration-500`} />
                   
-                  <div className="relative w-full h-full bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/30 transition-all duration-500 flex flex-col items-center justify-center">
-                    <motion.div
-                      animate={{ 
-                        rotate: [0, 10, -10, 0],
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: index * 0.2
-                      }}
-                      className="text-4xl mb-2"
-                    >
-                      {tech.logo}
-                    </motion.div>
+                  <div className="relative w-full h-full bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-white/30 transition-all duration-500 flex flex-col items-center justify-center p-4">
+                    <div className="relative w-20 h-20 mb-2 flex items-center justify-center">
+                      <Image
+                        src={tech.logo}
+                        alt={tech.name}
+                        fill
+                        className="object-contain"
+                        unoptimized
+                        onError={(e) => {
+                          // Fallback to text if image fails to load
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          const parent = target.parentElement;
+                          if (parent && !parent.querySelector('.fallback-text')) {
+                            const fallback = document.createElement('div');
+                            fallback.className = 'fallback-text text-2xl font-bold text-white';
+                            const techWithFallback = tech as typeof tech & { fallback?: string };
+                            fallback.textContent = techWithFallback.fallback || tech.name.charAt(0);
+                            parent.appendChild(fallback);
+                          }
+                        }}
+                      />
+                    </div>
                     
-                    <h3 className="text-white font-semibold text-lg group-hover:text-cyan-400 transition-colors">
+                    <h3 className="text-white font-semibold text-sm group-hover:text-cyan-400 transition-colors text-center">
                       {tech.name}
                     </h3>
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

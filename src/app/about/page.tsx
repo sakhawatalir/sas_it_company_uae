@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  CheckCircleIcon,
   UserGroupIcon,
   ShieldCheckIcon,
   TrophyIcon,
@@ -45,29 +44,6 @@ export default function AboutPage() {
       experience: '8+ years in web development',
       image: '/images/team/developer.jpg',
       bio: 'Full-stack developer with expertise in modern web technologies and e-commerce solutions.',
-    },
-  ];
-
-  const certifications = [
-    {
-      name: 'Cisco Certified',
-      description: 'Networking Solutions',
-      logo: '/images/cert/cisco.png',
-    },
-    {
-      name: 'Microsoft Partner',
-      description: 'Cloud Solutions',
-      logo: '/images/cert/microsoft.png',
-    },
-    {
-      name: 'CompTIA Certified',
-      description: 'Security+',
-      logo: '/images/cert/comptia.png',
-    },
-    {
-      name: 'ISO 9001:2015',
-      description: 'Quality Management',
-      logo: '/images/cert/iso.png',
     },
   ];
 
@@ -248,36 +224,6 @@ export default function AboutPage() {
                 </p>
                 <p style={{color: '#e2e8f0', fontSize: '0.875rem'}}>
                   {member.bio}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications & Partnerships */}
-      <section className="page-section" style={{backgroundColor: '#16213e'}}>
-        <div className="page-content">
-          <div style={{textAlign: 'center', marginBottom: '4rem'}}>
-            <h2 className="page-title">
-              Certifications & Partnerships
-            </h2>
-            <p className="page-subtitle" style={{marginBottom: 0}}>
-              Certified professionals and trusted industry partnerships
-            </p>
-          </div>
-
-          <div className="page-grid" style={{gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem'}}>
-            {certifications.map((cert, index) => (
-              <div key={index} className="card why-choose-item">
-                <div style={{width: '4rem', height: '4rem', backgroundColor: '#0f3460', borderRadius: '0.5rem', margin: '0 auto 1rem auto', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <CheckCircleIcon style={{height: '2rem', width: '2rem', color: '#4a9eff'}} />
-                </div>
-                <h3 style={{fontSize: '1.125rem', fontWeight: '600', color: '#ffffff', marginBottom: '0.5rem'}}>
-                  {cert.name}
-                </h3>
-                <p style={{color: '#e2e8f0', fontSize: '0.875rem'}}>
-                  {cert.description}
                 </p>
               </div>
             ))}

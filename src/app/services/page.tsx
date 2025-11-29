@@ -1,4 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 import {
   ShieldCheckIcon,
   ServerIcon,
@@ -10,8 +15,107 @@ import {
   EnvelopeIcon,
   CloudIcon,
   VideoCameraIcon,
+  ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+
+function ServiceCard({ service, index }: { service: any; index: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  return (
+    <motion.div
+      id={service.id}
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="group"
+    >
+      <div className="relative overflow-hidden rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/20">
+        {/* Gradient Background */}
+        <div className={`absolute inset-0 bg-gradient-to-r ${service.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+        
+        <div className="relative p-8 lg:p-10">
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
+            {/* Left Section - Icon & Title */}
+            <div className="flex-shrink-0">
+              <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-r ${service.gradient} p-4 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                <service.icon className="w-10 h-10 text-white" />
+              </div>
+              <div className="mt-6">
+                <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 transition-all duration-300">
+                  {service.title}
+                </h2>
+                <div className={`inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r ${service.gradient} text-white font-semibold text-sm shadow-lg`}>
+                  {service.pricing}
+                </div>
+              </div>
+            </div>
+
+            {/* Middle Section - Description & Features */}
+            <div className="flex-1 min-w-0">
+              <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                {service.description}
+              </p>
+              
+              {/* Features Grid */}
+              <div className="mb-6">
+                <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+                  Key Features
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {service.features.slice(0, 4).map((feature: string, idx: number) => (
+                    <div key={idx} className="flex items-start gap-2">
+                      <CheckCircleIcon className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300 text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                {service.features.length > 4 && (
+                  <div className="mt-3 text-sm text-gray-400">
+                    + {service.features.length - 4} more features
+                  </div>
+                )}
+              </div>
+
+              {/* Technologies */}
+              <div>
+                <h3 className="text-white font-semibold mb-3 text-sm uppercase tracking-wider">
+                  Technologies We Use
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {service.technologies.map((tech: string, idx: number) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1.5 rounded-lg bg-white/10 text-gray-300 text-xs font-medium border border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Section - CTA Button */}
+            <div className="flex-shrink-0 w-full lg:w-auto">
+              <Link
+                href="/contact"
+                className="group/btn inline-flex items-center justify-center w-full lg:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:from-blue-500 hover:to-purple-500 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-blue-500/50 hover:scale-105"
+              >
+                Get Quote
+                <ArrowRightIcon className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+              </Link>
+              <p className="mt-3 text-xs text-gray-400 text-center lg:text-left">
+                Professional installation included
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function ServicesPage() {
   const services = [
@@ -30,6 +134,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Cisco', 'Fortinet', 'SonicWall', 'Ubiquiti', 'Meraki'],
       pricing: 'Starting from AED 2,500',
+      gradient: 'from-blue-500 to-cyan-500',
+      bgGradient: 'from-blue-500/10 to-cyan-500/10',
     },
     {
       id: 'cabling',
@@ -46,6 +152,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Panduit', 'Commscope', 'Legrand', 'Schneider Electric'],
       pricing: 'Starting from AED 50/point',
+      gradient: 'from-purple-500 to-pink-500',
+      bgGradient: 'from-purple-500/10 to-pink-500/10',
     },
     {
       id: 'cctv',
@@ -62,6 +170,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Hikvision', 'Dahua', 'Axis', 'Bosch', 'Uniview'],
       pricing: 'Starting from AED 800/camera',
+      gradient: 'from-green-500 to-teal-500',
+      bgGradient: 'from-green-500/10 to-teal-500/10',
     },
     {
       id: 'servers',
@@ -78,6 +188,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Dell', 'HP', 'VMware', 'Microsoft', 'AWS', 'Azure'],
       pricing: 'Starting from AED 5,000',
+      gradient: 'from-indigo-500 to-purple-500',
+      bgGradient: 'from-indigo-500/10 to-purple-500/10',
     },
     {
       id: 'access-control',
@@ -94,6 +206,8 @@ export default function ServicesPage() {
       ],
       technologies: ['ZKTeco', 'Suprema', 'Anviz', 'Honeywell', 'Bosch'],
       pricing: 'Starting from AED 1,200/door',
+      gradient: 'from-red-500 to-orange-500',
+      bgGradient: 'from-red-500/10 to-orange-500/10',
     },
     {
       id: 'repair',
@@ -110,6 +224,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Dell', 'HP', 'Lenovo', 'Apple', 'ASUS', 'Acer'],
       pricing: 'Starting from AED 150/hour',
+      gradient: 'from-yellow-500 to-orange-500',
+      bgGradient: 'from-yellow-500/10 to-orange-500/10',
     },
     {
       id: 'automation',
@@ -126,6 +242,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Lutron', 'Control4', 'Crestron', 'KNX', 'Zigbee'],
       pricing: 'Starting from AED 3,000/room',
+      gradient: 'from-pink-500 to-rose-500',
+      bgGradient: 'from-pink-500/10 to-rose-500/10',
     },
     {
       id: 'web',
@@ -142,6 +260,8 @@ export default function ServicesPage() {
       ],
       technologies: ['React', 'Next.js', 'WordPress', 'Shopify', 'Laravel', 'Node.js'],
       pricing: 'Starting from AED 2,000',
+      gradient: 'from-cyan-500 to-blue-500',
+      bgGradient: 'from-cyan-500/10 to-blue-500/10',
     },
     {
       id: 'crm',
@@ -158,6 +278,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Salesforce', 'Microsoft Dynamics', 'SAP', 'Odoo', 'Zoho'],
       pricing: 'Starting from AED 8,000',
+      gradient: 'from-violet-500 to-purple-500',
+      bgGradient: 'from-violet-500/10 to-purple-500/10',
     },
     {
       id: 'cloud',
@@ -174,6 +296,8 @@ export default function ServicesPage() {
       ],
       technologies: ['Microsoft 365', 'Google Workspace', 'AWS', 'Azure', 'cPanel'],
       pricing: 'Starting from AED 25/user/month',
+      gradient: 'from-sky-500 to-blue-500',
+      bgGradient: 'from-sky-500/10 to-blue-500/10',
     },
   ];
 
@@ -206,87 +330,11 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="page-section">
-        <div className="page-content">
-          <div style={{display: 'flex', flexDirection: 'column', gap: '5rem'}}>
+      <section className="relative py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-8">
             {services.map((service, index) => (
-              <div key={service.id} id={service.id} className="service-detail">
-                <div className={`service-detail ${index % 2 === 1 ? 'service-detail-reverse' : ''}`}>
-                  <div className="service-content">
-                    <div className="service-header">
-                      <service.icon className="service-detail-icon" />
-                      <div>
-                        <h2 className="service-detail-title">
-                          {service.title}
-                        </h2>
-                        <div className="service-price">
-                          {service.pricing}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <p className="service-detail-description">
-                      {service.description}
-                    </p>
-
-                    {/* Features */}
-                    <div style={{marginBottom: '1.5rem'}}>
-                      <h3 className="features-title">
-                        Key Features:
-                      </h3>
-                      <div className="features-grid">
-                        {service.features.map((feature, idx) => (
-                          <div key={idx} className="feature-item">
-                            <CheckCircleIcon className="feature-check" />
-                            <span className="feature-text">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Technologies */}
-                    <div style={{marginBottom: '2rem'}}>
-                      <h3 className="tech-title">
-                        Technologies We Use:
-                      </h3>
-                      <div className="tech-tags">
-                        {service.technologies.map((tech, idx) => (
-                          <span key={idx} className="tech-tag">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <Link
-                      href="/contact"
-                      className="btn-primary"
-                    >
-                      Get Quote for {service.title}
-                    </Link>
-                  </div>
-
-                  <div className="service-visual">
-                    <div className="service-visual-card">
-                      <service.icon className="service-visual-icon" />
-                      <h3 className="service-visual-title">
-                        Professional {service.title}
-                      </h3>
-                      <p className="service-visual-description">
-                        Reliable, scalable, and secure solutions tailored to your business needs.
-                      </p>
-                      <div className="service-pricing">
-                        <div className="service-pricing-price">
-                          {service.pricing}
-                        </div>
-                        <p className="service-pricing-note">
-                          Professional installation and setup included
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ServiceCard key={service.id} service={service} index={index} />
             ))}
           </div>
         </div>
