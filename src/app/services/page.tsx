@@ -12,14 +12,25 @@ import {
   ComputerDesktopIcon,
   WrenchScrewdriverIcon,
   HomeIcon,
-  EnvelopeIcon,
   CloudIcon,
   VideoCameraIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
-function ServiceCard({ service, index }: { service: any; index: number }) {
+interface Service {
+  id: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  features: string[];
+  technologies: string[];
+  pricing: string;
+  gradient: string;
+  bgGradient: string;
+}
+
+function ServiceCard({ service, index }: { service: Service; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
