@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Bars3Icon, XMarkIcon, PhoneIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
@@ -8,6 +8,17 @@ import { Bars3Icon, XMarkIcon, PhoneIcon, ChevronDownIcon } from '@heroicons/rea
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -20,7 +31,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="header-fixed">
+    <header className={`header-fixed ${isScrolled ? 'header-scrolled' : ''}`}>
       <div className="header-container">
         <div className="header-content">
           {/* Logo */}
