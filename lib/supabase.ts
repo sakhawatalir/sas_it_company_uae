@@ -2,8 +2,20 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
+// Client for public operations (uses anon key)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Admin client for server-side operations (uses service role key, bypasses RLS)
+export const supabaseAdmin = supabaseServiceRoleKey
+  ? createClient(supabaseUrl, supabaseServiceRoleKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    })
+  : null
 
 // Database Types
 export interface Project {
@@ -30,13 +42,17 @@ export interface Project {
 }
 
 // Upload image to Supabase Storage
+// Uses admin client if available to bypass RLS, otherwise uses regular client
 export async function uploadProjectImage(file: File, projectId: string, index: number) {
   const fileExt = file.name.split('.').pop()
   const fileName = `${projectId}-${index}.${fileExt}`
   const filePath = `projects/${fileName}`
 
-  const { data, error } = await supabase.storage
-    .from('project-images')
+  // Use admin client if available (for server-side operations), otherwise use regular client
+  const client = supabaseAdmin || supabase
+
+  const { data, error } = await client.storage
+    .from('proect')
     .upload(filePath, file, {
       cacheControl: '3600',
       upsert: false
@@ -47,8 +63,8 @@ export async function uploadProjectImage(file: File, projectId: string, index: n
   }
 
   // Get public URL
-  const { data: { publicUrl } } = supabase.storage
-    .from('project-images')
+  const { data: { publicUrl } } = client.storage
+    .from('proect')
     .getPublicUrl(filePath)
 
   return publicUrl

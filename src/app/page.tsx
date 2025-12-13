@@ -539,6 +539,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Clients/References Section */}
+      <section className="relative py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="text-blue-400 text-sm font-medium">Our Partners</span>
+            <h2 className="text-4xl font-bold text-white mt-2 mb-4">
+              Trusted by Leading Companies
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              We&apos;re proud to work with industry leaders across Dubai and the UAE.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 items-center">
+            {clients.map((client, index) => (
+              <motion.div
+                key={client.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="relative group cursor-pointer"
+              >
+                <div className="relative w-full h-28 md:h-32 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-500 flex items-center justify-center p-4 overflow-hidden">
+                  <div className="relative w-full h-full flex items-center justify-center">
+                    <Image
+                      src={client.logo}
+                      alt={client.name}
+                      fill
+                      className="object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 rounded-xl transition-all duration-500" />
+                </div>
+                <div className="mt-3 text-center">
+                  <p className="text-white text-xs md:text-sm font-medium group-hover:text-blue-400 transition-colors">
+                    {client.name}
+                  </p>
+                  <p className="text-gray-500 text-xs mt-1">{client.industry}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <section className="relative py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -17,7 +17,10 @@ import {
   ServerIcon,
   ShieldCheckIcon,
   DevicePhoneMobileIcon,
+  PencilSquareIcon,
+  ArrowLeftIcon,
 } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 interface ProjectFormData {
   title: string;
@@ -88,6 +91,7 @@ export default function AdminProjectsPage() {
   const [dragActive, setDragActive] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -269,7 +273,10 @@ export default function AdminProjectsPage() {
       });
 
       if (!createResponse.ok) {
-        throw new Error('Failed to create project');
+        const errorData = await createResponse.json().catch(() => ({}));
+        const errorMessage = errorData.details || errorData.error || 'Failed to create project';
+        console.error('API Error Response:', errorData);
+        throw new Error(errorMessage);
       }
 
       const project = await createResponse.json();
@@ -278,13 +285,36 @@ export default function AdminProjectsPage() {
       let imageUrls: string[] = [];
       if (formData.images.length > 0) {
         try {
-          const uploadPromises = formData.images.map((file, index) => {
+          const uploadPromises = formData.images.map(async (file, index) => {
             // Use mock upload if Supabase is not configured
             if (!isSupabaseConfigured()) {
               console.log('Using mock upload - Supabase not configured');
               return mockUploadImage(file, project.id, index);
             }
-            return uploadProjectImage(file, project.id, index);
+            
+            // Use API route for server-side upload (bypasses RLS)
+            try {
+              const uploadFormData = new FormData();
+              uploadFormData.append('file', file);
+              uploadFormData.append('projectId', project.id);
+              uploadFormData.append('index', index.toString());
+
+              const uploadResponse = await fetch('/api/upload-image', {
+                method: 'POST',
+                body: uploadFormData,
+              });
+
+              if (!uploadResponse.ok) {
+                const errorData = await uploadResponse.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Failed to upload image');
+              }
+
+              const { url } = await uploadResponse.json();
+              return url;
+            } catch (error) {
+              console.error(`Error uploading image ${index}:`, error);
+              throw error;
+            }
           });
           
           imageUrls = await Promise.all(uploadPromises);
@@ -337,32 +367,60 @@ export default function AdminProjectsPage() {
       
     } catch (error) {
       console.error('Error submitting project:', error);
+      const errorMsg = error instanceof Error ? error.message : 'An unknown error occurred';
+      setErrorMessage(errorMsg);
       setSubmitStatus('error');
       
-      // Show error message for 5 seconds
+      // Log full error details
+      console.error('Full error:', {
+        message: errorMsg,
+        error: error,
+        stack: error instanceof Error ? error.stack : undefined
+      });
+      
+      // Show error message for 10 seconds (longer to read detailed errors)
       setTimeout(() => {
         setSubmitStatus('idle');
-      }, 5000);
+        setErrorMessage('');
+      }, 10000);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="admin-container">
-      <div className="admin-form max-w-6xl">
+    <div className="container">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="admin-header"
-        >
-          <div className="admin-icon">
-            <FolderPlusIcon className="w-8 h-8 text-white" />
+        <div className="mb-6">
+          <Link
+            href="/admin/dashboard"
+            className="inline-flex items-center text-[#4a9eff] hover:text-[#3a8eef] transition-colors mb-4"
+          >
+            <ArrowLeftIcon className="h-5 w-5 mr-2" />
+            Back to Dashboard
+          </Link>
+          <div className="flex items-center justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="admin-header"
+            >
+              <div className="admin-icon">
+                <FolderPlusIcon className="w-8 h-8 text-white" />
+              </div>
+              <h1 className="admin-title">Add New Project</h1>
+              <p className="admin-subtitle">Upload and manage your project portfolio</p>
+            </motion.div>
+            <Link
+              href="/admin/projects/manage"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#0f3460] hover:bg-[#1a2a4a] border border-[#4a9eff] text-white rounded-lg transition-colors"
+            >
+              <PencilSquareIcon className="h-5 w-5" />
+              Manage Projects
+            </Link>
           </div>
-          <h1 className="admin-title">Add New Project</h1>
-          <p className="admin-subtitle">Upload and manage your project portfolio</p>
-        </motion.div>
+        </div>
 
         {/* Configuration Status */}
         {!isSupabaseConfigured() && (
@@ -395,10 +453,16 @@ export default function AdminProjectsPage() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="error-message flex items-center gap-2"
+            className="error-message flex flex-col gap-2"
           >
-            <ExclamationTriangleIcon className="w-5 h-5" />
-            Error uploading project. Please try again.
+            <div className="flex items-center gap-2">
+              <ExclamationTriangleIcon className="w-5 h-5" />
+              <span className="font-semibold">Error uploading project</span>
+            </div>
+            {errorMessage && (
+              <p className="text-sm ml-7 opacity-90">{errorMessage}</p>
+            )}
+            <p className="text-sm ml-7 opacity-75">Please check the console for more details.</p>
           </motion.div>
         )}
 

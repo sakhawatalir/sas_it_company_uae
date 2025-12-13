@@ -49,15 +49,15 @@ CREATE POLICY "Public projects are viewable by everyone"
 ON projects FOR SELECT 
 USING (true);
 
--- Allow authenticated users to insert projects (you can modify this based on your auth setup)
-CREATE POLICY "Authenticated users can insert projects" 
+-- Allow service role to insert projects (for Prisma/API usage)
+CREATE POLICY "Service role can insert projects" 
 ON projects FOR INSERT 
-WITH CHECK (auth.role() = 'authenticated');
+WITH CHECK (true);
 
--- Allow authenticated users to update their own projects
-CREATE POLICY "Authenticated users can update projects" 
+-- Allow service role to update projects (for Prisma/API usage)
+CREATE POLICY "Service role can update projects" 
 ON projects FOR UPDATE 
-USING (auth.role() = 'authenticated');
+USING (true);
 
 -- Allow authenticated users to delete projects
 CREATE POLICY "Authenticated users can delete projects" 

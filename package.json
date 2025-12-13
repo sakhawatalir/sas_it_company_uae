@@ -8,7 +8,8 @@
     "build": "next build --turbopack",
     "build:safe": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:db": "node test-connection.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",

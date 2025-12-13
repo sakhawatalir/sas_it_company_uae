@@ -15,12 +15,15 @@ export async function POST(request: NextRequest) {
       featuresLength: data.features?.length
     });
 
-    // Ensure arrays are properly formatted
+    // Ensure arrays are properly formatted and convert date strings to Date objects
     const projectData = {
       ...data,
       features: Array.isArray(data.features) ? data.features : [],
       technologies: Array.isArray(data.technologies) ? data.technologies : [],
-      imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : []
+      imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : [],
+      // Convert date strings to Date objects (or null if not provided)
+      startDate: data.startDate ? new Date(data.startDate) : null,
+      completionDate: data.completionDate ? new Date(data.completionDate) : null,
     };
 
     const project = await createProject(projectData);
@@ -30,8 +33,15 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error creating project:', error);
     const details = error instanceof Error ? error.message : 'Unknown error';
+    const stack = error instanceof Error ? error.stack : undefined;
+    console.error('Full error stack:', stack);
     return NextResponse.json(
-      { error: 'Failed to create project', details },
+      { 
+        error: 'Failed to create project', 
+        details,
+        // Include stack in development only
+        ...(process.env.NODE_ENV === 'development' && { stack })
+      },
       { status: 500 }
     );
   }

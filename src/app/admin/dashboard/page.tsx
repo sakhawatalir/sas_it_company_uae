@@ -61,12 +61,20 @@ export default function AdminDashboard() {
       color: 'bg-green-600',
     },
     {
-      title: 'Projects',
-      description: 'Manage portfolio projects and case studies',
-      icon: FolderOpenIcon,
+      title: 'Add Project',
+      description: 'Create new portfolio projects',
+      icon: PlusIcon,
       href: '/admin/projects',
       count: stats.totalProjects,
       color: 'bg-purple-600',
+    },
+    {
+      title: 'Manage Projects',
+      description: 'View, edit, and delete projects',
+      icon: FolderOpenIcon,
+      href: '/admin/projects/manage',
+      count: stats.totalProjects,
+      color: 'bg-indigo-600',
     },
     {
       title: 'Clients',
@@ -187,7 +195,7 @@ export default function AdminDashboard() {
               </Link>
 
               <Link
-                href="/admin/projects/create"
+                href="/admin/projects"
                 className="flex items-center p-4 bg-[#0f3460] rounded-lg hover:bg-[#1a1a2e] transition-colors group"
               >
                 <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
@@ -198,6 +206,21 @@ export default function AdminDashboard() {
                     Add New Project
                   </div>
                   <div className="text-gray-400 text-sm">Showcase completed work</div>
+                </div>
+              </Link>
+
+              <Link
+                href="/admin/projects/manage"
+                className="flex items-center p-4 bg-[#0f3460] rounded-lg hover:bg-[#1a1a2e] transition-colors group"
+              >
+                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center mr-4">
+                  <PencilSquareIcon className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <div className="text-white font-medium group-hover:text-indigo-400 transition-colors">
+                    Manage Projects
+                  </div>
+                  <div className="text-gray-400 text-sm">Edit or delete existing projects</div>
                 </div>
               </Link>
             </div>

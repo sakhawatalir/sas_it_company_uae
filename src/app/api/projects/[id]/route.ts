@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getProjectById, updateProject, deleteProject } from '../../../../../lib/projects'
+import { NextRequest, NextResponse } from 'next/server';
+import { getProjectById, deleteProject } from '../../../../../lib/projects';
 
 export async function GET(
   request: NextRequest,
@@ -7,40 +7,32 @@ export async function GET(
 ) {
   try {
     const resolvedParams = await params;
-    const project = await getProjectById(resolvedParams.id)
+    const { id } = resolvedParams;
+    
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Project ID is required' },
+        { status: 400 }
+      );
+    }
+
+    const project = await getProjectById(id);
     
     if (!project) {
       return NextResponse.json(
         { error: 'Project not found' },
         { status: 404 }
-      )
+      );
     }
 
-    return NextResponse.json(project)
+    return NextResponse.json(project, { status: 200 });
   } catch (error) {
-    console.error('Error fetching project:', error)
+    console.error('Error fetching project:', error);
+    const details = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to fetch project' },
+      { error: 'Failed to fetch project', details },
       { status: 500 }
-    )
-  }
-}
-
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    const resolvedParams = await params;
-    const data = await request.json()
-    const project = await updateProject(resolvedParams.id, data)
-    return NextResponse.json(project)
-  } catch (error) {
-    console.error('Error updating project:', error)
-    return NextResponse.json(
-      { error: 'Failed to update project' },
-      { status: 500 }
-    )
+    );
   }
 }
 
@@ -50,13 +42,27 @@ export async function DELETE(
 ) {
   try {
     const resolvedParams = await params;
-    await deleteProject(resolvedParams.id)
-    return NextResponse.json({ message: 'Project deleted successfully' })
-  } catch (error) {
-    console.error('Error deleting project:', error)
+    const { id } = resolvedParams;
+    
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Project ID is required' },
+        { status: 400 }
+      );
+    }
+
+    await deleteProject(id);
+    
     return NextResponse.json(
-      { error: 'Failed to delete project' },
+      { message: 'Project deleted successfully' },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Error deleting project:', error);
+    const details = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json(
+      { error: 'Failed to delete project', details },
       { status: 500 }
-    )
+    );
   }
 }

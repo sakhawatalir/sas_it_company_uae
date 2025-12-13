@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { Project } from '@prisma/client';
 import {
   BuildingOfficeIcon,
   ShoppingBagIcon,
@@ -11,170 +15,135 @@ import {
   CalendarIcon,
   UserGroupIcon,
   CurrencyDollarIcon,
+  GlobeAltIcon,
+  DevicePhoneMobileIcon,
+  CogIcon,
+  ServerIcon,
+  ShieldCheckIcon,
+  CodeBracketIcon,
+  LinkIcon,
+  ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 
-export default function ProjectsPage() {
-  const projects = [
-    {
-      id: 1,
-      title: 'Enterprise Network Overhaul',
-      client: 'Dubai Logistics Hub',
-      industry: 'Logistics & Warehousing',
-      icon: TruckIcon,
-      description: 'Complete network infrastructure upgrade for a 50,000 sq ft warehouse facility with 200+ workstations.',
-      challenge: 'Outdated network causing frequent downtime and slow data transfer affecting operations.',
-      solution: 'Implemented enterprise-grade Cisco network with redundant connections, managed switches, and advanced security protocols.',
-      results: [
-        '99.9% network uptime achieved',
-        '300% increase in data transfer speed',
-        'Zero security incidents in 12 months',
-        '40% reduction in IT support tickets',
-      ],
-      technologies: ['Cisco Meraki', 'Fiber Optic Cabling', 'Fortinet Firewall', 'Ubiquiti Access Points'],
-      duration: '6 weeks',
-      team: '8 engineers',
-      investment: 'AED 150,000',
-      image: '/images/projects/logistics-network.jpg',
-      testimonial: {
-        text: 'SAS IT Services transformed our entire network infrastructure. The improvement in efficiency and reliability has been remarkable.',
-        author: 'Ahmed Al-Rashid, IT Manager'
-      }
-    },
-    {
-      id: 2,
-      title: 'Multi-Location CCTV System',
-      client: 'Emirates Retail Chain',
-      industry: 'Retail',
-      icon: ShoppingBagIcon,
-      description: 'Advanced surveillance system installation across 15 retail locations with centralized monitoring.',
-      challenge: 'Need for comprehensive security monitoring across multiple retail outlets with centralized management.',
-      solution: 'Deployed IP-based CCTV system with 4K cameras, NVRs, and cloud-based central monitoring dashboard.',
-      results: [
-        '24/7 monitoring across all locations',
-        '50% reduction in theft incidents',
-        'Real-time alerts and notifications',
-        'Complete video backup for 90 days',
-      ],
-      technologies: ['Hikvision 4K Cameras', 'Cloud NVR', 'Mobile App Integration', 'AI Analytics'],
-      duration: '8 weeks',
-      team: '12 technicians',
-      investment: 'AED 280,000',
-      image: '/images/projects/retail-cctv.jpg',
-      testimonial: {
-        text: 'The CCTV system has significantly improved our security posture. The remote monitoring capability is exceptional.',
-        author: 'Sarah Johnson, Operations Director'
-      }
-    },
-    {
-      id: 3,
-      title: 'Hospital IT Infrastructure',
-      client: 'Emirates Healthcare Center',
-      industry: 'Healthcare',
-      icon: HeartIcon,
-      description: 'Comprehensive IT infrastructure for a 200-bed hospital including networking, servers, and security systems.',
-      challenge: 'Critical need for reliable, secure IT infrastructure supporting patient care and medical equipment.',
-      solution: 'Implemented redundant server systems, secure network infrastructure, and integrated access control with patient management systems.',
-      results: [
-        '100% system availability for critical operations',
-        'HIPAA-compliant security implementation',
-        'Integrated patient management system',
-        '24/7 technical support coverage',
-      ],
-      technologies: ['Dell PowerEdge Servers', 'VMware vSphere', 'Cisco Security', 'Biometric Access Control'],
-      duration: '12 weeks',
-      team: '15 specialists',
-      investment: 'AED 450,000',
-      image: '/images/projects/hospital-it.jpg',
-      testimonial: {
-        text: 'SAS IT Services provided a robust and secure infrastructure that supports our critical healthcare operations seamlessly.',
-        author: 'Dr. Mohammed Hassan, IT Director'
-      }
-    },
-    {
-      id: 4,
-      title: 'Smart Office Automation',
-      client: 'TechCorp Dubai',
-      industry: 'Technology',
-      icon: BuildingOfficeIcon,
-      description: 'Complete smart office solution including automation, HVAC control, and integrated security systems.',
-      challenge: 'Modern office requiring intelligent automation for energy efficiency and enhanced user experience.',
-      solution: 'Deployed comprehensive building automation system with smart lighting, climate control, and integrated security.',
-      results: [
-        '35% reduction in energy consumption',
-        'Automated lighting and climate control',
-        'Enhanced employee productivity',
-        'Mobile app control for all systems',
-      ],
-      technologies: ['KNX Building Automation', 'Lutron Lighting', 'Honeywell HVAC', 'Integrated Security'],
-      duration: '10 weeks',
-      team: '10 engineers',
-      investment: 'AED 320,000',
-      image: '/images/projects/smart-office.jpg',
-      testimonial: {
-        text: 'The smart office solution has transformed our workplace. Energy savings and employee satisfaction have both improved significantly.',
-        author: 'Lisa Kumar, Facilities Manager'
-      }
-    },
-    {
-      id: 5,
-      title: 'Educational Campus Network',
-      client: 'Dubai International School',
-      industry: 'Education',
-      icon: AcademicCapIcon,
-      description: 'Campus-wide network infrastructure supporting 2000+ students and staff with high-speed connectivity.',
-      challenge: 'Large campus requiring reliable network infrastructure for educational technology and digital learning.',
-      solution: 'Implemented fiber optic backbone with wireless coverage across campus, content filtering, and bandwidth management.',
-      results: [
-        'Campus-wide WiFi coverage achieved',
-        'Secure internet access for students',
-        'Content filtering and monitoring',
-        'Support for 1000+ simultaneous users',
-      ],
-      technologies: ['Fiber Optic Network', 'Enterprise WiFi', 'Content Filtering', 'Bandwidth Management'],
-      duration: '14 weeks',
-      team: '12 technicians',
-      investment: 'AED 380,000',
-      image: '/images/projects/school-network.jpg',
-      testimonial: {
-        text: 'The network infrastructure has revolutionized our digital learning capabilities. Students and staff now have seamless connectivity.',
-        author: 'Mark Thompson, IT Coordinator'
-      }
-    },
-    {
-      id: 6,
-      title: 'Luxury Villa Home Automation',
-      client: 'Private Residence - Palm Jumeirah',
-      industry: 'Residential',
-      icon: HomeIcon,
-      description: 'Complete home automation system for luxury villa including lighting, security, entertainment, and climate control.',
-      challenge: 'High-end residence requiring sophisticated automation with elegant control interfaces.',
-      solution: 'Installed comprehensive home automation system with touchscreen controls, voice integration, and mobile app management.',
-      results: [
-        'Fully automated lighting and climate',
-        'Integrated security and entertainment',
-        'Voice and app control capabilities',
-        'Energy-efficient smart systems',
-      ],
-      technologies: ['Control4 Automation', 'Lutron Lighting', 'Sonos Audio', 'Smart Security Integration'],
-      duration: '8 weeks',
-      team: '6 specialists',
-      investment: 'AED 250,000',
-      image: '/images/projects/villa-automation.jpg',
-      testimonial: {
-        text: 'The home automation system is incredible. Everything works seamlessly and the level of control is exactly what we wanted.',
-        author: 'Private Client'
-      }
-    }
-  ];
+// Map category to icon
+const getCategoryIcon = (category: string) => {
+  const categoryMap: { [key: string]: any } = {
+    'web-development': GlobeAltIcon,
+    'mobile-development': DevicePhoneMobileIcon,
+    'software-development': CogIcon,
+    'cloud-infrastructure': ServerIcon,
+    'cybersecurity': ShieldCheckIcon,
+    'logistics': TruckIcon,
+    'retail': ShoppingBagIcon,
+    'healthcare': HeartIcon,
+    'education': AcademicCapIcon,
+    'corporate': BuildingOfficeIcon,
+    'residential': HomeIcon,
+  };
+  return categoryMap[category] || GlobeAltIcon;
+};
 
-  const industries = [
-    { name: 'Healthcare', icon: HeartIcon, projects: 8, color: 'bg-red-600' },
-    { name: 'Education', icon: AcademicCapIcon, projects: 12, color: 'bg-blue-600' },
-    { name: 'Retail', icon: ShoppingBagIcon, projects: 15, color: 'bg-green-600' },
-    { name: 'Logistics', icon: TruckIcon, projects: 10, color: 'bg-yellow-600' },
-    { name: 'Corporate Offices', icon: BuildingOfficeIcon, projects: 20, color: 'bg-purple-600' },
-    { name: 'Residential', icon: HomeIcon, projects: 25, color: 'bg-pink-600' },
-  ];
+// Format category name for display
+const formatCategoryName = (category: string) => {
+  return category
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+// Calculate duration between dates
+const calculateDuration = (startDate: Date | null, completionDate: Date | null) => {
+  if (!startDate || !completionDate) return null;
+  const diffTime = Math.abs(completionDate.getTime() - startDate.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const weeks = Math.ceil(diffDays / 7);
+  return `${weeks} week${weeks !== 1 ? 's' : ''}`;
+};
+
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const loadProjects = async () => {
+    try {
+      const response = await fetch('/api/projects');
+      if (!response.ok) {
+        throw new Error('Failed to fetch projects');
+      }
+      const data = await response.json();
+      setProjects(data || []);
+    } catch (err) {
+      console.error('Error loading projects:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Transform database projects to display format
+  const displayProjects = projects.map((project) => {
+    const Icon = getCategoryIcon(project.category);
+    const duration = calculateDuration(
+      project.startDate ? new Date(project.startDate) : null,
+      project.completionDate ? new Date(project.completionDate) : null
+    );
+    
+    return {
+      id: project.id,
+      title: project.title,
+      client: project.client,
+      industry: formatCategoryName(project.category),
+      icon: Icon,
+      description: project.description,
+      results: project.features || [],
+      technologies: project.technologies || [],
+      duration: duration || project.teamSize || 'N/A',
+      team: project.teamSize || 'N/A',
+      investment: project.budget || 'N/A',
+      image: project.imageUrls && project.imageUrls.length > 0 ? project.imageUrls[0] : null,
+      testimonial: project.testimonial && project.testimonialAuthor ? {
+        text: project.testimonial,
+        author: project.testimonialAuthor
+      } : null,
+      githubUrl: project.githubUrl || null,
+      projectUrl: project.projectUrl || null,
+    };
+  });
+
+  // Calculate industries from actual projects
+  const getIndustries = () => {
+    const categoryCounts: { [key: string]: number } = {};
+    projects.forEach(project => {
+      const category = formatCategoryName(project.category);
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    });
+
+    const industryMap: { [key: string]: { icon: any; color: string } } = {
+      'Web Development': { icon: GlobeAltIcon, color: 'bg-blue-600' },
+      'Mobile Development': { icon: DevicePhoneMobileIcon, color: 'bg-purple-600' },
+      'Software Development': { icon: CogIcon, color: 'bg-green-600' },
+      'Cloud Infrastructure': { icon: ServerIcon, color: 'bg-yellow-600' },
+      'Cybersecurity': { icon: ShieldCheckIcon, color: 'bg-red-600' },
+      'Healthcare': { icon: HeartIcon, color: 'bg-red-600' },
+      'Education': { icon: AcademicCapIcon, color: 'bg-blue-600' },
+      'Retail': { icon: ShoppingBagIcon, color: 'bg-green-600' },
+      'Logistics': { icon: TruckIcon, color: 'bg-yellow-600' },
+      'Corporate Offices': { icon: BuildingOfficeIcon, color: 'bg-purple-600' },
+      'Residential': { icon: HomeIcon, color: 'bg-pink-600' },
+    };
+
+    return Object.entries(categoryCounts).map(([name, count]) => ({
+      name,
+      icon: industryMap[name]?.icon || GlobeAltIcon,
+      projects: count,
+      color: industryMap[name]?.color || 'bg-gray-600',
+    }));
+  };
+
+  const industries = getIndustries();
 
   return (
     <div className="bg-[#1a1a2e]">
@@ -191,20 +160,20 @@ export default function ProjectsPage() {
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#4a9eff]">500+</div>
-                <div className="text-gray-300 text-sm">Projects Completed</div>
+                <div className="text-3xl font-bold text-[#4a9eff]">{projects.length}</div>
+                <div className="text-gray-300 text-sm">Total Projects</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#4a9eff]">250+</div>
-                <div className="text-gray-300 text-sm">Happy Clients</div>
+                <div className="text-3xl font-bold text-[#4a9eff]">{projects.filter(p => p.status === 'completed').length}</div>
+                <div className="text-gray-300 text-sm">Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#4a9eff]">99.9%</div>
-                <div className="text-gray-300 text-sm">Success Rate</div>
+                <div className="text-3xl font-bold text-[#4a9eff]">{projects.filter(p => p.status === 'in-progress').length}</div>
+                <div className="text-gray-300 text-sm">In Progress</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#4a9eff]">10+</div>
-                <div className="text-gray-300 text-sm">Years Experience</div>
+                <div className="text-3xl font-bold text-[#4a9eff]">{industries.length}</div>
+                <div className="text-gray-300 text-sm">Categories</div>
               </div>
             </div>
           </div>
@@ -253,96 +222,183 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="space-y-20">
-            {projects.map((project, index) => (
-              <div key={project.id} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="flex items-center mb-6">
-                    <project.icon className="h-10 w-10 text-[#4a9eff] mr-4" />
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-400">{project.client}</p>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-300 mb-6 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  {/* Project Details */}
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="text-center">
-                      <CalendarIcon className="h-5 w-5 text-[#4a9eff] mx-auto mb-2" />
-                      <div className="text-white font-medium text-sm">{project.duration}</div>
-                      <div className="text-gray-400 text-xs">Duration</div>
-                    </div>
-                    <div className="text-center">
-                      <UserGroupIcon className="h-5 w-5 text-[#4a9eff] mx-auto mb-2" />
-                      <div className="text-white font-medium text-sm">{project.team}</div>
-                      <div className="text-gray-400 text-xs">Team Size</div>
-                    </div>
-                    <div className="text-center">
-                      <CurrencyDollarIcon className="h-5 w-5 text-[#4a9eff] mx-auto mb-2" />
-                      <div className="text-white font-medium text-sm">{project.investment}</div>
-                      <div className="text-gray-400 text-xs">Investment</div>
-                    </div>
-                  </div>
-
-                  {/* Key Results */}
-                  <div className="mb-6">
-                    <h4 className="text-white font-semibold mb-3">Key Results:</h4>
-                    <div className="space-y-2">
-                      {project.results.map((result, idx) => (
-                        <div key={idx} className="flex items-center text-gray-300">
-                          <CheckCircleIcon className="h-4 w-4 text-[#4a9eff] mr-2 flex-shrink-0" />
-                          <span className="text-sm">{result}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Technologies */}
-                  <div className="mb-6">
-                    <h4 className="text-white font-semibold mb-3">Technologies Used:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-[#0f3460] text-[#4a9eff] rounded-full text-xs font-medium"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Testimonial */}
-                  <div className="card bg-[#0f3460] border-[#4a9eff]">
-                    <p className="text-gray-300 italic mb-4">
-                      &ldquo;{project.testimonial.text}&rdquo;
-                    </p>
-                    <p className="text-white font-medium">
-                      — {project.testimonial.author}
-                    </p>
-                  </div>
-                </div>
-
-                <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="card p-0 overflow-hidden">
-                    <div className="aspect-video bg-gradient-to-br from-[#0f3460] to-[#4a9eff] flex items-center justify-center">
-                      <div className="text-center text-white">
-                        <project.icon className="h-16 w-16 mx-auto mb-4" />
-                        <h4 className="text-xl font-semibold mb-2">{project.industry}</h4>
-                        <p className="text-white/80">{project.client}</p>
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#4a9eff] border-t-transparent mb-4"></div>
+              <p className="text-gray-300">Loading projects...</p>
+            </div>
+          ) : displayProjects.length === 0 ? (
+            <div className="text-center py-20">
+              <GlobeAltIcon className="h-16 w-16 text-gray-500 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">No Projects Yet</h3>
+              <p className="text-gray-400 mb-4">Projects will appear here once they are added through the admin panel.</p>
+              <Link href="/admin/projects" className="inline-block bg-[#4a9eff] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#3a8eef] transition-colors">
+                Add First Project
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-20">
+              {displayProjects.map((project, index) => (
+                <div key={project.id} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                  <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
+                    <div className="flex items-center mb-6">
+                      <project.icon className="h-10 w-10 text-[#4a9eff] mr-4" />
+                      <div>
+                        <Link href={`/projects/${project.id}`}>
+                          <h3 className="text-2xl font-bold text-white hover:text-[#4a9eff] transition-colors cursor-pointer">
+                            {project.title}
+                          </h3>
+                        </Link>
+                        <p className="text-gray-400">{project.client}</p>
                       </div>
                     </div>
+
+                    <p className="text-gray-300 mb-6 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    {/* Project Details */}
+                    <div className="grid grid-cols-3 gap-4 mb-6">
+                      <div className="text-center">
+                        <CalendarIcon className="h-5 w-5 text-[#4a9eff] mx-auto mb-2" />
+                        <div className="text-white font-medium text-sm">{project.duration}</div>
+                        <div className="text-gray-400 text-xs">Duration</div>
+                      </div>
+                      <div className="text-center">
+                        <UserGroupIcon className="h-5 w-5 text-[#4a9eff] mx-auto mb-2" />
+                        <div className="text-white font-medium text-sm">{project.team}</div>
+                        <div className="text-gray-400 text-xs">Team Size</div>
+                      </div>
+                      <div className="text-center">
+                        <CurrencyDollarIcon className="h-5 w-5 text-[#4a9eff] mx-auto mb-2" />
+                        <div className="text-white font-medium text-sm">{project.investment}</div>
+                        <div className="text-gray-400 text-xs">Investment</div>
+                      </div>
+                    </div>
+
+                    {/* Key Results */}
+                    {project.results && project.results.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="text-white font-semibold mb-3">Key Results:</h4>
+                        <div className="space-y-2">
+                          {project.results.map((result, idx) => (
+                            <div key={idx} className="flex items-center text-gray-300">
+                              <CheckCircleIcon className="h-4 w-4 text-[#4a9eff] mr-2 flex-shrink-0" />
+                              <span className="text-sm">{result}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Technologies */}
+                    {project.technologies && project.technologies.length > 0 && (
+                      <div className="mb-6">
+                        <h4 className="text-white font-semibold mb-3">Technologies Used:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="px-3 py-1 bg-[#0f3460] text-[#4a9eff] rounded-full text-xs font-medium"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Testimonial */}
+                    {project.testimonial && (
+                      <div className="card bg-[#0f3460] border-[#4a9eff] mb-6">
+                        <p className="text-gray-300 italic mb-4">
+                          &ldquo;{project.testimonial.text}&rdquo;
+                        </p>
+                        <p className="text-white font-medium">
+                          — {project.testimonial.author}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Project Links */}
+                    <div className="flex flex-wrap gap-3 mb-6">
+                      <Link
+                        href={`/projects/${project.id}`}
+                        className="inline-flex items-center gap-2 bg-[#4a9eff] hover:bg-[#3a8eef] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+                      >
+                        View Details
+                        <ArrowRightIcon className="h-5 w-5" />
+                      </Link>
+                      {project.projectUrl && (
+                        <a
+                          href={project.projectUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-[#0f3460] hover:bg-[#1a2a4a] border border-[#4a9eff] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <LinkIcon className="h-5 w-5" />
+                          Live Project
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-[#0f3460] hover:bg-[#1a2a4a] border border-[#4a9eff] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <CodeBracketIcon className="h-5 w-5" />
+                          GitHub
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
+                    <Link href={`/projects/${project.id}`}>
+                      <div className="card p-0 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity">
+                        {project.image ? (
+                          <div className="aspect-video relative overflow-hidden bg-gray-800">
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                console.error('Image load error for:', project.image);
+                                // Show placeholder on error
+                                e.currentTarget.style.display = 'none';
+                                const placeholder = e.currentTarget.nextElementSibling;
+                                if (placeholder) {
+                                  (placeholder as HTMLElement).style.display = 'flex';
+                                }
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#0f3460] to-[#4a9eff] flex items-center justify-center hidden">
+                              <div className="text-center text-white">
+                                <project.icon className="h-16 w-16 mx-auto mb-4" />
+                                <h4 className="text-xl font-semibold mb-2">{project.industry}</h4>
+                                <p className="text-white/80">{project.client}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="aspect-video bg-gradient-to-br from-[#0f3460] to-[#4a9eff] flex items-center justify-center">
+                            <div className="text-center text-white">
+                              <project.icon className="h-16 w-16 mx-auto mb-4" />
+                              <h4 className="text-xl font-semibold mb-2">{project.industry}</h4>
+                              <p className="text-white/80">{project.client}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
