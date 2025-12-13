@@ -101,7 +101,7 @@ export async function getProjectById(id: string) {
 export async function updateProject(id: string, data: Partial<CreateProjectData>) {
   try {
     // Ensure arrays are properly formatted if provided
-    const updateData: any = { ...data };
+    const updateData: Partial<CreateProjectData> = { ...data };
     
     if ('technologies' in data) {
       updateData.technologies = Array.isArray(data.technologies) ? data.technologies : [];

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import React from 'react';
 import { Project } from '@prisma/client';
 import {
   BuildingOfficeIcon,
@@ -27,7 +28,7 @@ import {
 
 // Map category to icon
 const getCategoryIcon = (category: string) => {
-  const categoryMap: { [key: string]: any } = {
+  const categoryMap: { [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>> } = {
     'web-development': GlobeAltIcon,
     'mobile-development': DevicePhoneMobileIcon,
     'software-development': CogIcon,
@@ -121,7 +122,7 @@ export default function ProjectsPage() {
       categoryCounts[category] = (categoryCounts[category] || 0) + 1;
     });
 
-    const industryMap: { [key: string]: { icon: any; color: string } } = {
+    const industryMap: { [key: string]: { icon: React.ComponentType<React.SVGProps<SVGSVGElement>>; color: string } } = {
       'Web Development': { icon: GlobeAltIcon, color: 'bg-blue-600' },
       'Mobile Development': { icon: DevicePhoneMobileIcon, color: 'bg-purple-600' },
       'Software Development': { icon: CogIcon, color: 'bg-green-600' },
