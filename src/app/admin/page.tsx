@@ -80,13 +80,6 @@ export default function AdminLoginPage() {
         </div>
 
         <div className="card">
-          {/* Demo Credentials Info */}
-          <div className="admin-demo">
-            <h3 className="admin-demo-title">Demo Credentials</h3>
-            <p className="admin-demo-text">Username: <span className="admin-demo-accent">admin</span></p>
-            <p className="admin-demo-text">Password: <span className="admin-demo-accent">sasit2024</span></p>
-          </div>
-
           <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
             {error && (
               <div className="error-message">
