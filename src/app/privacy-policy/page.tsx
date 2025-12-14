@@ -137,7 +137,7 @@ export default function PrivacyPolicyPage() {
             <h3 className="text-white mb-4">Contact Information</h3>
             <div className="space-y-2 text-gray-300">
               <p><strong>Email:</strong> privacy@sasitservices.com</p>
-              <p><strong>Phone:</strong> +971 50 123 4567</p>
+              <p><strong>Phone:</strong> +971-526716178</p>
               <p><strong>Address:</strong> Business Bay, Dubai, UAE</p>
             </div>
           </div>

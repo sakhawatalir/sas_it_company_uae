@@ -65,9 +65,9 @@ export default function SitemapPage() {
 
   const quickLinks = [
     { name: 'Get Free Quote', href: '/contact', color: 'bg-[#4a9eff] hover:bg-[#3a8ae8]' },
-    { name: 'Call Now: +971 50 123 4567', href: 'tel:+971501234567', color: 'bg-green-600 hover:bg-green-700' },
+    { name: 'Call Now: +971-526716178', href: 'tel:+971501234567', color: 'bg-green-600 hover:bg-green-700' },
     { name: 'WhatsApp Us', href: 'https://wa.me/971501234567', color: 'bg-[#25d366] hover:bg-[#1faa52]' },
-    { name: 'Email Us', href: 'mailto:info@sasitservices.com', color: 'bg-purple-600 hover:bg-purple-700' },
+    { name: 'Email Us', href: 'mailto:Info@sasitdubai.com', color: 'bg-purple-600 hover:bg-purple-700' },
   ];
 
   return (
@@ -172,19 +172,19 @@ export default function SitemapPage() {
                     <PhoneIcon className="h-5 w-5 mr-3 text-[#4a9eff]" />
                     <div>
                       <a href="tel:+971501234567" className="hover:text-[#4a9eff] transition-colors">
-                        +971 50 123 4567
+                        +971-526716178
                       </a>
                       <span className="mx-2">|</span>
                       <a href="tel:+97143214567" className="hover:text-[#4a9eff] transition-colors">
-                        +971 4 321 4567
+                        +971-545829411
                       </a>
                     </div>
                   </div>
                   
                   <div className="flex items-center">
                     <ChatBubbleLeftRightIcon className="h-5 w-5 mr-3 text-[#4a9eff]" />
-                    <a href="mailto:info@sasitservices.com" className="hover:text-[#4a9eff] transition-colors">
-                      info@sasitservices.com
+                    <a href="mailto:Info@sasitdubai.com" className="hover:text-[#4a9eff] transition-colors">
+                      Info@sasitdubai.com
                     </a>
                   </div>
                   

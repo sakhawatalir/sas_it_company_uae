@@ -66,19 +66,19 @@ const Footer = () => {
                 <PhoneIcon className="footer-contact-icon" />
                 <div className="footer-contact-text">
                   <a href="tel:+971501234567" className="footer-contact-link">
-                    +971 50 123 4567
+                    +971-526716178
                   </a>
                   <span className="footer-separator">|</span>
                   <a href="tel:+97143214567" className="footer-contact-link">
-                    +971 4 321 4567
+                    +971-545829411
                   </a>
                 </div>
               </div>
               
               <div className="footer-contact-item">
                 <EnvelopeIcon className="footer-contact-icon" />
-                <a href="mailto:info@sasitservices.com" className="footer-contact-link">
-                  info@sasitservices.com
+                <a href="mailto:Info@sasitdubai.com" className="footer-contact-link">
+                  Info@sasitdubai.com
                 </a>
               </div>
               

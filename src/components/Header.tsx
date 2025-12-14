@@ -68,7 +68,7 @@ const Header = () => {
               className="header-phone"
             >
               <PhoneIcon className="h-4 w-4 mr-2" />
-              <span className="text-sm">+971 50 123 4567</span>
+              <span className="text-sm">+971-526716178</span>
             </a>
             <Link
               href="/contact"
@@ -113,7 +113,7 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <PhoneIcon className="h-4 w-4 mr-2" />
-                <span>+971 50 123 4567</span>
+                <span>+971-526716178</span>
               </a>
               <Link
                 href="/contact"

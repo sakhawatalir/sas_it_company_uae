@@ -172,7 +172,7 @@ export default function TermsConditionsPage() {
             <h3 className="text-white mb-4">Contact Information</h3>
             <div className="space-y-2 text-gray-300">
               <p><strong>Email:</strong> legal@sasitservices.com</p>
-              <p><strong>Phone:</strong> +971 50 123 4567</p>
+              <p><strong>Phone:</strong> +971-526716178</p>
               <p><strong>Address:</strong> Business Bay, Dubai, UAE</p>
               <p><strong>Business Hours:</strong> Sunday - Thursday, 9:00 AM - 6:00 PM</p>
             </div>

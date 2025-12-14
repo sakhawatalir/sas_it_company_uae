@@ -210,7 +210,7 @@ export default function ContactPage() {
                         href="tel:+971501234567"
                         className="text-white hover:text-blue-400 transition-colors"
                       >
-                        +971 50 123 4567
+                        +971-526716178
                       </a>
                     </div>
                   </div>
@@ -222,10 +222,10 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <a
-                        href="mailto:info@sasitservices.com"
+                        href="mailto:Info@sasitdubai.com"
                         className="text-white hover:text-blue-400 transition-colors"
                       >
-                        info@sasitservices.com
+                        Info@sasitdubai.com
                       </a>
                     </div>
                   </div>

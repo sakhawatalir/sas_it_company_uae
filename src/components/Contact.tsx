@@ -55,14 +55,14 @@ export default function Contact() {
                                         <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
                                             <Phone size={20} className="text-primary" />
                                         </div>
-                                        <span>+971 50 123 4567</span>
+                                        <span>+971-526716178</span>
                                     </a>
 
-                                    <a href="mailto:info@sasitservices.com" className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
+                                    <a href="mailto:Info@sasitdubai.com" className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
                                         <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
                                             <Mail size={20} className="text-secondary" />
                                         </div>
-                                        <span>info@sasitservices.com</span>
+                                        <span>Info@sasitdubai.com</span>
                                     </a>
                                 </div>
                             </div>
