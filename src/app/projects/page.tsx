@@ -232,10 +232,7 @@ export default function ProjectsPage() {
             <div className="text-center py-20">
               <GlobeAltIcon className="h-16 w-16 text-gray-500 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-white mb-2">No Projects Yet</h3>
-              <p className="text-gray-400 mb-4">Projects will appear here once they are added through the admin panel.</p>
-              <Link href="/admin/projects" className="inline-block bg-[#4a9eff] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#3a8eef] transition-colors">
-                Add First Project
-              </Link>
+              <p className="text-gray-400">Projects will appear here once they are added through the admin panel.</p>
             </div>
           ) : (
             <div className="space-y-20">
